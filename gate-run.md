@@ -184,3 +184,18 @@ apply; no `record` command used — per competition checks).
 ## Verdict
 
 All 8 questions pass. All 4 gates pass. SUBMIT.
+
+## Fix round 2 — license_osi (coordinator, after `check`)
+
+`check` (kit level-27 CLI) on the bundle at 3eadc3b1: 13 passed,
+1 failed, 5 skipped, 5 checked at submission. The single failure was
+license_osi: the LICENSE text carried no `SPDX-License-Identifier:`
+line. Fix: added `SPDX-License-Identifier: MIT` as line 3 of LICENSE
+(no code changed; main.py + README.md byte-identical). All thinking
+checks PASSED on that run and are unaffected by the LICENSE line:
+thinking_reproduces 512/513 lines authored (99.8%), thinking_turns
+136, thinking_priced 4 usage records, thinking_revised 20 messages
+for main.py, transcripts_run_record PASS, thinking_in_window PASS,
+thinking_own_work PASS (512/513 own lines — passes even though it is
+only required from 20 Nov 00:00Z). `check` re-run after this fix
+(recorded in the coordinator's report).
