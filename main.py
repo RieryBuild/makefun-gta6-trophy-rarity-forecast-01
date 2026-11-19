@@ -24,7 +24,6 @@ Pure standard library, deterministic, no network, no randomness.
 import json
 import math
 import os
-import sys
 from datetime import datetime, timezone
 
 Z_VALUES = (-1.6448536269514722, -0.6744897501960817, 0.0,
@@ -86,8 +85,14 @@ def rolled_log_growth(growth, decay, steps):
     """Sum of log(1 + g) over `steps` refreshes when the per-refresh
     growth itself decays by `decay` each refresh (decay 1 = flat).
     A fractional final step counts proportionally."""
-    if steps <= 0 or growth <= 0:
+    if steps <= 0:
         return 0.0
+    # Negative growth is real (a trophy's earners can shrink when the
+    # page's 2-decimal rounding moves against a small count): log1p
+    # handles it as long as growth stays above -1, which the call sites
+    # enforce (per-trophy growth clamped to >= -0.9, tracked >= 0).
+    # Clamp defensively anyway so a pathological value cannot blow up.
+    growth = max(growth, -0.99)
     total = 0.0
     whole = int(steps)
     for j in range(whole):
@@ -131,7 +136,7 @@ def analyse_history(case):
         changed = abs(n_cur - n_prev) > 0.005 * n_prev
         if not changed:
             for a, b in zip(rates_prev, rates_cur):
-                if a is None or b is None:
+                if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
                     continue
                 if abs(b - a) > 0.02:
                     changed = True
@@ -140,7 +145,7 @@ def analyse_history(case):
             continue
         earner_growth = []
         for a, b in zip(rates_prev, rates_cur):
-            if a is None or b is None:
+            if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
                 earner_growth.append(None)
                 continue
             e_prev = a * n_prev / 100.0
