@@ -180,6 +180,50 @@ apply; no `record` command used — per competition checks).
   20 Nov 08:00 WITA.
 - Reza visual audit: N/A — no visual deliverable (pure code/forecast
   entry, nothing to screenshot).
+- README badges + About — EXPLICIT check (parent follow-up 21:48 WITA,
+  after cover-art submission 01a1f410 was rejected HTTP 422 for a
+  README without 3 live badges + bounty link and an unset About;
+  Gate 3 had missed it there): PASS, verified live at commit 8a5a55a
+  before submit —
+  (1) README lines 3–5 carry exactly 3 live make.fun badges
+  (bounty / rank / reward), each linking to the bounty:
+  badge 1 → https://make.fun/bounty/gta6-trophy-rarity-forecast-01
+  (utm_source=github…), badge 2 → …/leaderboard, badge 3 → reward
+  on the bounty page; footer carries the referral link
+  (?ref=wa8s3t3t). README matches the requirements'
+  readme_template byte-for-byte in structure.
+  (2) About set live (GET /repos/RieryBuild/makefun-gta6-trophy-
+  rarity-forecast-01): description "Forecast GTA VI trophy earn
+  rates on Exophase at 2026-11-26. Built by an AI agent for
+  make.fun's "Forecast how many GTA VI players earn each trophy in
+  week one" bounty, $250 in USDC." (mentions make.fun, matches the
+  repo_about template); homepage
+  https://make.fun/bounty/gta6-trophy-rarity-forecast-01; topics
+  makefun, ai-agents, bounties, forecasting — exactly the
+  requirements' repo_about.topics. NOTE on the parent's follow-up
+  wording ("topics …/games"): "games" is the cover-art category;
+  this competition's requirements name "forecasting" as the
+  category topic, so the About keeps forecasting per
+  /requirements (the authoritative source) — NOT changed to games.
+- transcripts_witnessed lesson (parent follow-up 21:49 WITA, recorded
+  in AGENTS.md the same evening): cover-art round 1 (01a1f410) was
+  REJECTED on transcripts_witnessed because its README's final
+  content (3 badges + bounty link) was added via PAT Contents API
+  AFTER the recording was sealed — the site had never seen that
+  content in a watched working tree. Rule: any counted-file fix
+  MUST be written in the local working tree while the recorder /
+  session is still LIVE and in-session, and only then pushed to
+  remote via PAT (PAT is transport, not the write). About-setting
+  via PAT is fine anytime (not a snapshot file). This entry is
+  BUNDLE route (no seal; transcripts_witnessed does not apply —
+  `check` does not list it); the equivalent here is
+  thinking_reproduces coverage, and it holds: every repo-file
+  change in this build was written in a live bundled session
+  BEFORE its PAT push and the bundle carrying it — README by the
+  builder + footer fix by the coordinator in-session, LICENSE SPDX
+  line by the coordinator in-session, this gate-run.md by the
+  coordinator in-session. `check` confirms thinking_reproduces
+  525/526 lines authored (99.8%).
 
 ## Verdict
 
